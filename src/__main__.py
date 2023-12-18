@@ -7,7 +7,7 @@ from .models import SealType
 
 config = Config()
 client = httpx.Client(
-    headers={"User-Agent": config.user_agent, "Cookie": config.cookie}
+    headers={"User-Agent": config.user_agent, "Cookie": config.cookie}, timeout=30
 )
 base_url = config.base_url
 
