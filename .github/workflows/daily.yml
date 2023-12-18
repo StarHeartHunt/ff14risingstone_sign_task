@@ -15,4 +15,4 @@ jobs:
 
       - uses: StarHeartHunt/ff14risingstone_sign_task@master
         with:
-          changelog_body: ${{ steps.release-drafter.outputs.body }}
+          cookie: ${{ secrets.COOKIE }}
