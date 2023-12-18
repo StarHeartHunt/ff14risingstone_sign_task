@@ -16,7 +16,7 @@ jobs:
 
       - run: echo "TAG_NAME=v$(poetry version -s)" >> $GITHUB_ENV
 
-      - uses: StarHeartHunt/ff14risingstone_sign_task@master
+      - uses: docker://ghcr.io/StarHeartHunt/ff14risingstone_sign_task:master
         with:
           archive_title: ${{ env.TAG_NAME }}
 
