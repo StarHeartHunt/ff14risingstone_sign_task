@@ -12,9 +12,9 @@ logging.basicConfig(level=logging.INFO)
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-    base_url: str = "https://apiff14risingstones.web.sdo.com"
-    cookie: str = Field(default=...)
-    user_agent: str = (
+    input_base_url: str = "https://apiff14risingstones.web.sdo.com"
+    input_cookie: str = Field(default=...)
+    input_user_agent: str = (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like"
         " Gecko) Chrome/120.0.0.0 Safari/537.36"
     )
@@ -30,9 +30,10 @@ settings = Settings()
 logging.debug(f"Settings: {settings.model_dump_json()}")
 
 client = httpx.Client(
-    headers={"User-Agent": settings.user_agent, "Cookie": settings.cookie}, timeout=30
+    headers={"User-Agent": settings.input_user_agent, "Cookie": settings.input_cookie},
+    timeout=30,
 )
-base_url = settings.base_url
+base_url = settings.input_base_url
 
 
 def do_seal(type_: SealType):
@@ -93,6 +94,8 @@ def main():
     time.sleep(3)
     comment()
     do_seal(SealType.COMMENT)
+
+    logging.info("任务完成")
 
 
 if __name__ == "__main__":
