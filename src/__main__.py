@@ -1,15 +1,38 @@
 import time
+import logging
+from enum import IntEnum
 
 import httpx
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from .config import Config
-from .models import SealType
+logging.basicConfig(level=logging.INFO)
 
-config = Config()
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+
+    base_url: str = "https://apiff14risingstones.web.sdo.com"
+    cookie: str = Field(default=...)
+    user_agent: str = (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like"
+        " Gecko) Chrome/120.0.0.0 Safari/537.36"
+    )
+
+
+class SealType(IntEnum):
+    SIGN = 1
+    LIKE = 2
+    COMMENT = 3
+
+
+settings = Settings()
+logging.debug(f"Settings: {settings.model_dump_json()}")
+
 client = httpx.Client(
-    headers={"User-Agent": config.user_agent, "Cookie": config.cookie}, timeout=30
+    headers={"User-Agent": settings.user_agent, "Cookie": settings.cookie}, timeout=30
 )
-base_url = config.base_url
+base_url = settings.base_url
 
 
 def do_seal(type_: SealType):
@@ -17,18 +40,18 @@ def do_seal(type_: SealType):
         f"{base_url}/api/home/active/online2312/doSeal", data={"type": type_}
     )
 
-    print(r.text)
+    logging.info(r.text)
 
 
 def sign_in():
     r = client.post(f"{base_url}/api/home/sign/signIn")
 
-    print(r.text)
+    logging.info(r.text)
 
 
 def like():
     r = client.post(f"{base_url}/api/home/posts/like", data={"id": 8, "type": 1})
-    print(r.text)
+    logging.info(r.text)
 
     return r
 
@@ -45,28 +68,28 @@ def comment():
         },
     )
 
-    print(r.text)
+    logging.info(r.text)
 
 
 def main():
-    print("开始签到")
+    logging.info("开始签到")
     sign_in()
     time.sleep(3)
     do_seal(SealType.SIGN)
 
-    print("开始点赞")
+    logging.info("开始点赞")
     counter = 0
     for _ in range(10):
         time.sleep(3)
         r = like()
         if r.json()["data"] == 1:
             counter += 1
-            print(f"第{counter}次点赞结束")
+            logging.info(f"第{counter}次点赞结束")
 
     time.sleep(3)
     do_seal(SealType.LIKE)
 
-    print("开始评论")
+    logging.info("开始评论")
     time.sleep(3)
     comment()
     do_seal(SealType.COMMENT)
