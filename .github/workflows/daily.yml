@@ -17,5 +17,5 @@ jobs:
         uses: ./.github/actions/setup-python
 
       - run: python -m src
-        with:
+        env:
           COOKIE: ${{ secrets.COOKIE }}
