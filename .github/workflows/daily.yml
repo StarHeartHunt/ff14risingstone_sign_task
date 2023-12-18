@@ -16,6 +16,7 @@ jobs:
       - name: Setup Python Environment
         uses: ./.github/actions/setup-python
 
-      - run: python -m src
+      - run: poetry run python -m src
+        shell: bash
         env:
           COOKIE: ${{ secrets.COOKIE }}
