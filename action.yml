@@ -1,0 +1,14 @@
+name: FF14 Risingstone Sign Tasks
+author: StarHeartHunt <starheart233@gmail.com>
+description: auto finish sign tasks of ff14 risingstone
+inputs:
+  cookie:
+    description: The cookie dumped from risingstone web frontend
+    required: true
+
+runs:
+  using: docker
+  image: Dockerfile
+branding:
+  icon: box
+  color: orange

@@ -13,10 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Python Environment
-        uses: ./.github/actions/setup-python
-
-      - run: poetry run python -m src
-        shell: bash
-        env:
-          COOKIE: ${{ secrets.COOKIE }}
+      - uses: StarHeartHunt/ff14risingstone_sign_task@master
+        with:
+          changelog_body: ${{ steps.release-drafter.outputs.body }}
