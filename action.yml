@@ -5,6 +5,12 @@ inputs:
   cookie:
     description: The cookie dumped from risingstone web frontend
     required: true
+  base_url:
+    description: The API domain of risingstone
+    required: false
+  user_agent:
+    description: The user agent to use for requests
+    required: false
 
 runs:
   using: docker
