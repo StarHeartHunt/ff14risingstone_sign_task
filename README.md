@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: docker://ghcr.io/StarHeartHunt/ff14risingstone_sign_task:master
+      - uses: docker://ghcr.io/starhearthunt/ff14risingstone_sign_task:master
         with:
           cookie: ${{ secrets.COOKIE }}
 ```
