@@ -38,7 +38,7 @@ jobs:
 可选配置项可以从 action 文件的 with 段传入，和必填项一样。
 
 - `base_url`：API 的入口域名。默认值：`https://apiff14risingstones.web.sdo.com`
-- `user_agent`：请求 API 时使用的用户代理。默认值：`Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"`
+- `user_agent`：请求 API 时使用的用户代理。默认值：`Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36`
 
 ## 许可证
 
