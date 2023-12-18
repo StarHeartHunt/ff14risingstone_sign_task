@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "ff14risingstone-sign-task"
+version = "0.1.0"
+description = ""
+authors = ["StarHeartHunt <starheart233@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+httpx = "^0.25.2"
+pydantic-settings = "^2.1.0"
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.9.3"
+black = "^23.9.1"
+pre-commit = "^3.1.0"
+ruff = ">=0.0.291,<0.1.0"
+
+[tool.black]
+preview = true
+line-length = 88
+extend-exclude = '''
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+length_sort = true
+skip_gitignore = true
+force_sort_within_sections = true
+extra_standard_library = ["typing_extensions"]
+
+[tool.ruff]
+select = ["E", "W", "F", "UP", "C", "T", "PYI", "PT", "Q"]
+ignore = ["E402", "C901", "UP037"]
+
+line-length = 88
+target-version = "py311"
+
+[tool.pyright]
+pythonVersion = "3.11"
+pythonPlatform = "All"
+executionEnvironments = [{ root = "./" }]
+
+typeCheckingMode = "basic"
+reportShadowedImports = false
+disableBytesTypePromotions = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
