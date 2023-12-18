@@ -3,6 +3,7 @@ name = "ff14risingstone-sign-task"
 version = "0.1.0"
 description = ""
 authors = ["StarHeartHunt <starheart233@gmail.com>"]
+license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
