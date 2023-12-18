@@ -1,7 +1,8 @@
+import time
+
 import httpx
 
 from .config import Config
-import time
 from .models import SealType
 
 config = Config()
