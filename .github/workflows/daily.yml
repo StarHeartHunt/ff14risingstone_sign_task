@@ -1,0 +1,21 @@
+name: Daily Tasks
+
+on:
+  schedule:
+    # Runs at 10:30 am UTC+8 every day
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  run-tasks:
+    name: Run FF14 Risingstones Tasks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python Environment
+        uses: ./.github/actions/setup-python
+
+      - run: python -m src
+        with:
+          COOKIE: ${{ secrets.COOKIE }}
