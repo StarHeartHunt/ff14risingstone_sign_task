@@ -18,6 +18,9 @@ class Settings(BaseSettings):
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like"
         " Gecko) Chrome/120.0.0.0 Safari/537.36"
     )
+    input_comment_content: str = '<p><span class="at-emo">[emo6]</span>&nbsp;</p>'
+    input_like_post_id: int = 8
+    input_comment_post_id: int = 8
 
 
 class SealType(IntEnum):
@@ -33,25 +36,28 @@ client = httpx.Client(
     headers={"User-Agent": settings.input_user_agent, "Cookie": settings.input_cookie},
     timeout=30,
 )
-base_url = settings.input_base_url
 
 
 def do_seal(type_: SealType):
     r = client.post(
-        f"{base_url}/api/home/active/online2312/doSeal", data={"type": type_}
+        f"{settings.input_base_url}/api/home/active/online2312/doSeal",
+        data={"type": type_},
     )
 
     logging.info(r.text)
 
 
 def sign_in():
-    r = client.post(f"{base_url}/api/home/sign/signIn")
+    r = client.post(f"{settings.input_base_url}/api/home/sign/signIn")
 
     logging.info(r.text)
 
 
 def like():
-    r = client.post(f"{base_url}/api/home/posts/like", data={"id": 8, "type": 1})
+    r = client.post(
+        f"{settings.input_base_url}/api/home/posts/like",
+        data={"id": settings.input_like_post_id, "type": 1},
+    )
     logging.info(r.text)
 
     return r
@@ -59,10 +65,10 @@ def like():
 
 def comment():
     r = client.post(
-        f"{base_url}/api/home/posts/comment",
+        f"{settings.input_base_url}/api/home/posts/comment",
         data={
-            "content": '<p><span class="at-emo">[emo6]</span>&nbsp;</p>',
-            "posts_id": "8",
+            "content": settings.input_comment_content,
+            "posts_id": settings.input_comment_post_id,
             "parent_id": "0",
             "root_parent": "0",
             "comment_pic": "",

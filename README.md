@@ -39,6 +39,9 @@ jobs:
 
 - `base_url`：API 的入口域名。默认值：`https://apiff14risingstones.web.sdo.com`
 - `user_agent`：请求 API 时使用的用户代理。默认值：`Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36`
+- `comment_content`：完成评论任务时的评论内容。默认值：`<p><span class="at-emo">[emo6]</span>&nbsp;</p>`
+- `like_post_id`：完成点赞任务时要点赞的根帖子 id。默认值：`8`
+- `comment_post_id`：完成评论任务时要评论的根帖子 id。默认值：`8`
 
 ## 许可证
 

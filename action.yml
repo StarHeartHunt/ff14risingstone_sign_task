@@ -11,6 +11,15 @@ inputs:
   user_agent:
     description: The user agent to use for requests
     required: false
+  comment_content:
+    description: The html content of the comment
+    required: false
+  like_post_id:
+    description: The post id to send like
+    required: false
+  comment_post_id:
+    description: The post id to send comment
+    required: false
 
 runs:
   using: docker
