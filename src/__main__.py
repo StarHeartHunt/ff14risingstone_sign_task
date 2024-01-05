@@ -1,7 +1,7 @@
 import time
 import logging
-from enum import IntEnum
 from typing import Any
+from enum import IntEnum
 
 import httpx
 from pydantic import Field
