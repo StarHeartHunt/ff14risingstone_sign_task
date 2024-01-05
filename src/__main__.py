@@ -1,6 +1,7 @@
 import time
 import logging
 from enum import IntEnum
+from typing import Any
 
 import httpx
 from pydantic import Field
@@ -21,6 +22,7 @@ class Settings(BaseSettings):
     input_comment_content: str = '<p><span class="at-emo">[emo6]</span>&nbsp;</p>'
     input_like_post_id: int = 8
     input_comment_post_id: int = 8
+    input_check_house_remain: bool = False
 
 
 class SealType(IntEnum):
@@ -78,6 +80,15 @@ def comment():
     logging.info(r.text)
 
 
+def get_user_info():
+    r = client.get(
+        f"{settings.input_base_url}/api/home/userInfo/getUserInfo?page=1",
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
+    ).json()
+
+    return r
+
+
 def main():
     logging.info("开始签到")
     sign_in()
@@ -102,6 +113,15 @@ def main():
     do_seal(SealType.COMMENT)
 
     logging.info("任务完成")
+
+    if settings.input_check_house_remain:
+        logging.info("开始检查房屋拆除倒计时")
+        user_info: dict[str, Any] = get_user_info()
+        house_remain_day = (
+            user_info.get("data", {}).get("characterDetail", {}).get("house_remain_day")
+        )
+        if house_remain_day:
+            raise Exception(f"房屋拆除倒计时：{house_remain_day}")
 
 
 if __name__ == "__main__":
