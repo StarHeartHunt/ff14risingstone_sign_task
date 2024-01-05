@@ -42,6 +42,7 @@ jobs:
 - `comment_content`：完成评论任务时的评论内容。默认值：`<p><span class="at-emo">[emo6]</span>&nbsp;</p>`
 - `like_post_id`：完成点赞任务时要点赞的根帖子 id。默认值：`8`
 - `comment_post_id`：完成评论任务时要评论的根帖子 id。默认值：`8`
+- `check_house_remain`：是否检查角色房屋拆除倒计时。默认值：`false`
 
 ## 许可证
 
