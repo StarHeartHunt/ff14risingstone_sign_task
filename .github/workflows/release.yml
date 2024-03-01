@@ -24,7 +24,7 @@ jobs:
           git tag ${{ env.TAG_NAME }}
           git push --tags
 
-      - uses: release-drafter/release-drafter@v5
+      - uses: release-drafter/release-drafter@v6
         with:
           name: Release ${{ env.TAG_NAME }} 🌈
           tag: ${{ env.TAG_NAME }}
