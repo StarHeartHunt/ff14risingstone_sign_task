@@ -95,22 +95,22 @@ def main():
     time.sleep(3)
     do_seal(SealType.SIGN)
 
-    logging.info("开始点赞")
-    counter = 0
-    for _ in range(10):
-        time.sleep(3)
-        r = like()
-        if r.json()["data"] == 1:
-            counter += 1
-            logging.info(f"第{counter}次点赞结束")
+    # logging.info("开始点赞")
+    # counter = 0
+    # for _ in range(10):
+    #     time.sleep(3)
+    #     r = like()
+    #     if r.json()["data"] == 1:
+    #         counter += 1
+    #         logging.info(f"第{counter}次点赞结束")
 
-    time.sleep(3)
-    do_seal(SealType.LIKE)
+    # time.sleep(3)
+    # do_seal(SealType.LIKE)
 
-    logging.info("开始评论")
-    time.sleep(3)
-    comment()
-    do_seal(SealType.COMMENT)
+    # logging.info("开始评论")
+    # time.sleep(3)
+    # comment()
+    # do_seal(SealType.COMMENT)
 
     logging.info("任务完成")
 
