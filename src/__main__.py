@@ -93,7 +93,7 @@ def main():
     logging.info("开始签到")
     sign_in()
     time.sleep(3)
-    do_seal(SealType.SIGN)
+    # do_seal(SealType.SIGN)
 
     # logging.info("开始点赞")
     # counter = 0
