@@ -16,3 +16,7 @@ jobs:
       - uses: docker://ghcr.io/starhearthunt/ff14risingstone_sign_task:master
         with:
           cookie: ${{ secrets.COOKIE }}
+          corpid: ${{ secrets.CORPID }}
+          secret: ${{ secrets.SECRET }}
+          agentid: ${{ secrets.AGENTID }}
+          touser: ${{ secrets.TOUSER }}
