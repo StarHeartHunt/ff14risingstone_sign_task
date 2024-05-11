@@ -20,6 +20,18 @@ inputs:
   comment_post_id:
     description: The post id to send comment
     required: false
+  corpid:
+    description: 企业唯一ID
+    required: false
+  secret:
+    description: 自定义应用密钥
+    required: false
+  agentid:
+    description: 自定义应用编号
+    required: false
+  touser:
+    description: 消息接收人
+    required: false
 
 runs:
   using: docker
