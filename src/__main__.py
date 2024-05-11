@@ -23,6 +23,10 @@ class Settings(BaseSettings):
     input_like_post_id: int = 8
     input_comment_post_id: int = 8
     input_check_house_remain: bool = False
+    input_corpid: str = ''
+    input_secret: str = ''
+    input_agentid: str = ''
+    input_touser: str = ''
 
 
 class SealType(IntEnum):
@@ -38,7 +42,33 @@ client = httpx.Client(
     headers={"User-Agent": settings.input_user_agent, "Cookie": settings.input_cookie},
     timeout=30,
 )
+client_wx = httpx.Client()
 
+def get_wecom_token():
+    r = client_wx.get(
+        f"https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={settings.input_corpid}&corpsecret={settings.input_secret}"
+    )
+    logging.info(r.json())
+    return r.json().get('access_token')
+
+def send_wecom(msg):
+    if access_token := get_wecom_token():
+        url = f"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={access_token}"
+        headers = {
+            "Content-Type": "application/json"
+        }
+        data = {
+            "touser": settings.input_touser,
+            "agentid": settings.input_agentid,
+            "msgtype": "text",
+            "text": {
+                "content": msg
+            }
+        }
+        r = client_wx.post(url=url, headers=headers, json=data)
+        logging.info(r.text)
+    else:
+        logging.info("没有获得token，发送企业微信消息失败")
 
 def do_seal(type_: SealType):
     r = client.post(
@@ -53,6 +83,8 @@ def sign_in():
     r = client.post(f"{settings.input_base_url}/api/home/sign/signIn")
 
     logging.info(r.text)
+    if settings.input_corpid and settings.input_secret and settings.input_agentid and settings.input_touser:
+        send_wecom(r.text)
 
 
 def like():
