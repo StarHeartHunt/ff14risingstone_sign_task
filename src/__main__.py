@@ -2,6 +2,7 @@ import time
 import logging
 from typing import Any
 from enum import IntEnum
+import uuid
 
 import httpx
 from pydantic import Field
@@ -80,7 +81,9 @@ def do_seal(type_: SealType):
 
 
 def sign_in():
-    r = client.post(f"{settings.input_base_url}/api/home/sign/signIn")
+    # https://apiff14risingstones.web.sdo.com/api/home/sign/signIn?tempsuid=87b3485a-5a53-4baa-bf4a-35c1d1153564
+    suid = uuid.uuid4()
+    r = client.post(f"{settings.input_base_url}/api/home/sign/signIn?tempsuid={suid}")
 
     logging.info(r.text)
     if settings.input_corpid and settings.input_secret and settings.input_agentid and settings.input_touser:
