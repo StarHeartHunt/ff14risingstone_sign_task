@@ -1,24 +1,29 @@
-import time
-import logging
-from typing import Any
-from enum import IntEnum
 import uuid
+import logging
+from enum import IntEnum
+from typing import Any, Annotated
 
 import httpx
-from pydantic import Field
+from pydantic import Field, BeforeValidator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 logging.basicConfig(level=logging.INFO)
+
+
+InputCookie = Annotated[
+    str,
+    BeforeValidator(lambda x: str.strip(str(x))),
+]
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     input_base_url: str = "https://apiff14risingstones.web.sdo.com"
-    input_cookie: str = Field(default=...)
+    input_cookie: InputCookie = Field(default=...)
     input_user_agent: str = (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like"
-        " Gecko) Chrome/120.0.0.0 Safari/537.36"
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
+        " like Gecko) Chrome/126.0.0.0 Safari/537.36"
     )
     input_comment_content: str = '<p><span class="at-emo">[emo6]</span>&nbsp;</p>'
     input_like_post_id: int = 8
@@ -40,7 +45,23 @@ settings = Settings()
 logging.debug(f"Settings: {settings.model_dump_json()}")
 
 client = httpx.Client(
-    headers={"User-Agent": settings.input_user_agent, "Cookie": settings.input_cookie},
+    headers={
+        "accept": "application/json, text/plain, */*",
+        "accept-language": "zh-CN,zh-TW;q=0.9,zh;q=0.8,en;q=0.7,und;q=0.6",
+        "cache-control": "no-cache",
+        "pragma": "no-cache",
+        "priority": "u=1, i",
+        "sec-ch-ua": '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "Referer": "https://ff14risingstones.web.sdo.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "User-Agent": settings.input_user_agent,
+        "Cookie": settings.input_cookie,
+    },
     timeout=30,
 )
 client_wx = httpx.Client()
@@ -80,10 +101,26 @@ def do_seal(type_: SealType):
     logging.info(r.text)
 
 
+def is_login_in():
+    r = client.get(
+        f"{settings.input_base_url}/api/home/sysMsg/getSysMsg",
+        params={
+            "page": 1,
+            "limit": 10,
+            "tempsuid": str(uuid.uuid4()),
+        },
+    )
+
+    logging.info(r.text)
+
+
 def sign_in():
-    # https://apiff14risingstones.web.sdo.com/api/home/sign/signIn?tempsuid=87b3485a-5a53-4baa-bf4a-35c1d1153564
-    suid = uuid.uuid4()
-    r = client.post(f"{settings.input_base_url}/api/home/sign/signIn?tempsuid={suid}")
+    r = client.post(
+        f"{settings.input_base_url}/api/home/sign/signIn",
+        params={
+            "tempsuid": str(uuid.uuid4()),
+        },
+    )
 
     logging.info(r.text)
     if settings.input_corpid and settings.input_secret and settings.input_agentid and settings.input_touser:
@@ -93,6 +130,9 @@ def sign_in():
 def like():
     r = client.post(
         f"{settings.input_base_url}/api/home/posts/like",
+        params={
+            "tempsuid": str(uuid.uuid4()),
+        },
         data={"id": settings.input_like_post_id, "type": 1},
     )
     logging.info(r.text)
@@ -103,6 +143,9 @@ def like():
 def comment():
     r = client.post(
         f"{settings.input_base_url}/api/home/posts/comment",
+        params={
+            "tempsuid": str(uuid.uuid4()),
+        },
         data={
             "content": settings.input_comment_content,
             "posts_id": settings.input_comment_post_id,
@@ -127,7 +170,6 @@ def get_user_info():
 def main():
     logging.info("开始签到")
     sign_in()
-    time.sleep(3)
     # do_seal(SealType.SIGN)
 
     # logging.info("开始点赞")
@@ -148,6 +190,7 @@ def main():
     # do_seal(SealType.COMMENT)
 
     logging.info("任务完成")
+
 
     if settings.input_check_house_remain:
         logging.info("开始检查房屋拆除倒计时")
