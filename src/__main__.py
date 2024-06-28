@@ -1,20 +1,26 @@
 import uuid
 import logging
-from typing import Any
 from enum import IntEnum
+from typing import Any, Annotated
 
 import httpx
-from pydantic import Field
+from pydantic import Field, BeforeValidator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 logging.basicConfig(level=logging.INFO)
+
+
+InputCookie = Annotated[
+    str,
+    BeforeValidator(lambda x: str.strip(str(x))),
+]
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     input_base_url: str = "https://apiff14risingstones.web.sdo.com"
-    input_cookie: str = Field(default=...)
+    input_cookie: InputCookie = Field(default=...)
     input_user_agent: str = (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
         " like Gecko) Chrome/126.0.0.0 Safari/537.36"
