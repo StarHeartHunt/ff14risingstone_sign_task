@@ -24,8 +24,8 @@ client = httpx.Client(
         "Cookie": settings.input_cookie,
     },
     timeout=30,
-    verify=False,
-    proxies="http://127.0.0.1:8888",
+    # verify=False,
+    # proxies="http://127.0.0.1:8888",
 )
 
 
