@@ -25,13 +25,19 @@ jobs:
           cookie: ${{ secrets.COOKIE }}
 ```
 
-- 在 Settings > Secrets and variables > Actions 中，添加 COOKIE 键，值为 F12 获得的 cookie。
+在 Settings > Secrets and variables > Actions 中，添加 COOKIE 键，值为 cookie 头中的 `ff14risingstones` 以等号 `=` 分割的键值对，其中值为 urlencode 后的结果。
+
+例：
+
+```bash
+ff14risingstones=s%3A1111.2222222%2F33333
+```
 
 ## 配置项
 
 ### 必填配置项
 
-- `cookie`：石之家 API 的 cookie 字符串
+- `cookie`：石之家 API cookie 中的 `ff14risingstones` 键值对
 
 ### 可选配置项
 
