@@ -25,7 +25,7 @@ jobs:
           cookie: ${{ secrets.COOKIE }}
 ```
 
-在 Settings > Secrets and variables > Actions 中，添加 COOKIE 键，值为 cookie 头中的 `ff14risingstones` 以等号 `=` 分割的键值对，其中值为 urlencode 后的结果。
+在 Settings > Secrets and variables > Actions 中，添加 COOKIE 键，值为 cookie 头中以等号 `=` 分割的 `ff14risingstones` 键值对，其中值为 urlencode 后的结果。
 
 例：
 
