@@ -49,6 +49,7 @@ ff14risingstones=s%3A1111.2222222%2F33333
 - `like_post_id`：完成点赞任务时要点赞的根帖子 id。默认值：`8`
 - `comment_post_id`：完成评论任务时要评论的根帖子 id。默认值：`8`
 - `check_house_remain`：是否检查角色房屋拆除倒计时。默认值：`false`
+- `get_sign_reward`：是否使用脚本领取当月签到奖励。默认值：`true`
 
 ## 许可证
 

@@ -20,6 +20,12 @@ inputs:
   comment_post_id:
     description: The post id to send comment
     required: false
+  check_house_remain:
+    description: Whether to check the countdown to the role's house destruction
+    required: false
+  get_sign_reward:
+    description: Whether to auto get the sign reward
+    required: false
 
 runs:
   using: docker
