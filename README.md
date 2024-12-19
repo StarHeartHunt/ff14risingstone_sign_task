@@ -2,7 +2,7 @@
 
 ## 使用方法
 
-- Fork 本仓库或者通过手动在已有或新建的仓库中新建 `.github/workflows/daily.yml` 文件，内容如下：
+- Fork 本仓库或者通过手动在仓库中新建 `.github/workflows/daily.yml` 文件，内容如下：
 
 ```yaml
 name: Daily Tasks
@@ -15,7 +15,7 @@ on:
 
 jobs:
   run-tasks:
-    name: Run FF14 Risingstones Tasks
+    name: Run FF14 Risingstone Tasks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
