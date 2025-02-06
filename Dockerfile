@@ -1,16 +1,14 @@
-FROM python:3.11 as requirements-stage
+FROM python:3.12-bookworm as requirements-stage
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /tmp
 
-COPY ./pyproject.toml ./poetry.lock* /tmp/
+COPY ./pyproject.toml ./uv.lock* /tmp/
 
-RUN curl -sSL https://install.python-poetry.org | python -
+RUN uv export --format requirements-txt --output-file requirements.txt --no-hashes
 
-ENV PATH="${PATH}:/root/.local/bin"
-
-RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
-
-FROM python:3.11
+FROM python:3.12-slim-bookworm
 
 WORKDIR /app
 
