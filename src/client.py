@@ -63,7 +63,7 @@ def sign_in():
         if data.get("code", None) is None or data.get("code") > 10000:
             raise RuntimeError(f"登录时出现错误: {data!r}")
     except Exception as e:
-        raise RuntimeError(f"登录请求响应时出现错误: {e!r}")
+        raise RuntimeError(f"解析响应时出现错误: {e!r}, {r.text}")
 
     logging.info(r.text)
 
