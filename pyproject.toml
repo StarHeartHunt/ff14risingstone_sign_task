@@ -6,11 +6,7 @@ description = "script for FFXIV CN Forum reward activities"
 license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = [
-    "curl-cffi>=0.7.4",
-    "httpx ~= 0.27",
- "pydantic-settings ~= 2.1",
-]
+dependencies = ["curl-cffi>=0.7.4", "httpx ~= 0.27", "pydantic-settings ~= 2.1"]
 
 [dependency-groups]
 dev = ["ruff ~= 0.9", "pre-commit ~= 4.1"]
