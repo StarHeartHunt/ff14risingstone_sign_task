@@ -1,80 +1,86 @@
+from json import JSONDecodeError
 import logging
 import uuid
 
-import httpx
+from curl_cffi import requests
 
 from . import settings
 from .models import SealType, SignRewardListResponse
 
-client = httpx.Client(
-    headers={
-        "accept": "application/json, text/plain, */*",
-        "cache-control": "no-cache",
-        "pragma": "no-cache",
-        "priority": "u=1, i",
-        "sec-ch-ua": '"Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "Referer": "https://ff14risingstones.web.sdo.com/",
-        "Referrer-Policy": "strict-origin-when-cross-origin",
-        "User-Agent": settings.input_user_agent,
-        "Cookie": settings.input_cookie,
-    },
-    timeout=30,
-    # verify=False,
-    # proxies="http://127.0.0.1:8888",
-)
+HEADERS = {
+    "accept": "application/json, text/plain, */*",
+    "cache-control": "no-cache",
+    "pragma": "no-cache",
+    "priority": "u=1, i",
+    "sec-ch-ua": '"Not A(Brand";v="8", "Chromium";v="132", "Google Chrome";v="132"',
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": '"macOS"',
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "Referer": "https://ff14risingstones.web.sdo.com/",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "User-Agent": settings.input_user_agent,
+    "Cookie": settings.input_cookie,
+}
 
 
 def do_seal(type_: SealType):
-    r = client.post(
+    r = requests.post(
         f"{settings.input_base_url}/api/home/active/online2312/doSeal",
-        data={"type": type_},
+        data={"type": type_},  # type: ignore
+        headers=HEADERS,
+        impersonate="chrome124",
     )
 
     logging.info(r.text)
 
 
 def is_login_in():
-    r = client.get(
+    r = requests.get(
         f"{settings.input_base_url}/api/home/sysMsg/getSysMsg",
         params={
             "page": 1,
             "limit": 10,
             "tempsuid": str(uuid.uuid4()),
         },
+        headers=HEADERS,
+        impersonate="chrome124",
     )
 
     logging.info(r.text)
 
 
 def sign_in():
-    r = client.post(
+    r = requests.post(
         f"{settings.input_base_url}/api/home/sign/signIn",
         params={
             "tempsuid": str(uuid.uuid4()),
         },
+        data={"tempsuid": str(uuid.uuid4())},
+        headers=HEADERS,
+        impersonate="chrome124",
     )
     try:
         data = r.json()
-        if data.get("code", None) is None or data.get("code") > 10000:
+        code = data.get("code", None)
+        if code is None or (code > 10000 and code != 10001):
             raise RuntimeError(f"登录时出现错误: {data!r}")
-    except Exception as e:
+    except JSONDecodeError as e:
         raise RuntimeError(f"解析响应时出现错误: {e!r}, {r.text}")
 
     logging.info(r.text)
 
 
 def like():
-    r = client.post(
+    r = requests.post(
         f"{settings.input_base_url}/api/home/posts/like",
         params={
             "tempsuid": str(uuid.uuid4()),
         },
-        data={"id": settings.input_like_post_id, "type": 1},
+        data={"id": settings.input_like_post_id, "type": 1},  # type: ignore
+        headers=HEADERS,
+        impersonate="chrome124",
     )
     logging.info(r.text)
 
@@ -82,7 +88,7 @@ def like():
 
 
 def comment():
-    r = client.post(
+    r = requests.post(
         f"{settings.input_base_url}/api/home/posts/comment",
         params={
             "tempsuid": str(uuid.uuid4()),
@@ -93,24 +99,27 @@ def comment():
             "parent_id": "0",
             "root_parent": "0",
             "comment_pic": "",
-        },
+        },  # type: ignore
+        headers=HEADERS,
+        impersonate="chrome124",
     )
 
     logging.info(r.text)
 
 
 def get_user_info():
-    r = client.get(
+    r = requests.get(
         f"{settings.input_base_url}/api/home/userInfo/getUserInfo",
         params={"page": 1},
-        headers={"Content-Type": "application/x-www-form-urlencoded"},
+        headers={**HEADERS, "Content-Type": "application/x-www-form-urlencoded"},
+        impersonate="chrome124",
     ).json()
 
     return r
 
 
 def get_sign_reward(id_, month):
-    r = client.post(
+    r = requests.post(
         f"{settings.input_base_url}/api/home/sign/getSignReward",
         params={
             "tempsuid": str(uuid.uuid4()),
@@ -120,18 +129,22 @@ def get_sign_reward(id_, month):
             "month": month,
             "tempsuid": str(uuid.uuid4()),
         },
+        headers=HEADERS,
+        impersonate="chrome124",
     )
 
     return r
 
 
 def get_sign_reward_list(month):
-    r = client.get(
+    r = requests.get(
         f"{settings.input_base_url}/api/home/sign/signRewardList",
         params={
             "month": month,
             "tempsuid": str(uuid.uuid4()),
         },
+        headers=HEADERS,
+        impersonate="chrome124",
     )
 
     return SignRewardListResponse.model_validate_json(r.text).data

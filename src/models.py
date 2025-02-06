@@ -16,8 +16,8 @@ class Settings(BaseSettings):
     input_base_url: str = "https://apiff14risingstones.web.sdo.com"
     input_cookie: InputCookie = Field(default=...)
     input_user_agent: str = (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
-        " like Gecko) Chrome/129.0.0.0 Safari/537.36"
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,"
+        " like Gecko) Chrome/132.0.0.0 Safari/537.36"
     )
     input_comment_content: str = '<p><span class="at-emo">[emo6]</span>&nbsp;</p>'
     input_like_post_id: int = 8
