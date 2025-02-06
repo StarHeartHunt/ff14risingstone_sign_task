@@ -1,7 +1,7 @@
 from enum import IntEnum
 from typing import Annotated
 
-from pydantic import Field, BaseModel, BeforeValidator
+from pydantic import BaseModel, BeforeValidator, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 InputCookie = Annotated[

@@ -1,4 +1,4 @@
-from datetime import UTC, datetime, timezone, timedelta
+from datetime import UTC, datetime, timedelta, timezone
 
 
 def get_current_month():
