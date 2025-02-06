@@ -58,6 +58,9 @@ def sign_in():
             "tempsuid": str(uuid.uuid4()),
         },
     )
+    data = r.json()
+    if data.get("code", None) is None or data.get("code") > 10000:
+        raise RuntimeError(f"登录账号时出现错误: {data!r}")
 
     logging.info(r.text)
 
