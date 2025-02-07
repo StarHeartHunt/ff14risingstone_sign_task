@@ -8,7 +8,7 @@ on:
 
 jobs:
   run-tasks:
-    name: Run FF14 Risingstones Tasks
+    name: Run FF14 Risingstone Tasks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,3 +16,4 @@ jobs:
       - uses: docker://ghcr.io/starhearthunt/ff14risingstone_sign_task:master
         with:
           cookie: ${{ secrets.COOKIE }}
+          user_agent: ${{ secrets.USER_AGENT }}

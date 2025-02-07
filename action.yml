@@ -3,13 +3,13 @@ author: StarHeartHunt <starheart233@gmail.com>
 description: auto finish sign tasks of ff14 risingstone
 inputs:
   cookie:
-    description: The cookie dumped from risingstone web frontend
+    description: The Cookie header set by risingstone server
+    required: true
+  user_agent:
+    description: The User-Agent header when login into risingstone
     required: true
   base_url:
     description: The API domain of risingstone
-    required: false
-  user_agent:
-    description: The user agent to use for requests
     required: false
   comment_content:
     description: The html content of the comment

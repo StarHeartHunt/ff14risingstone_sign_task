@@ -4,7 +4,7 @@ from typing import Annotated
 from pydantic import BaseModel, BeforeValidator, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-InputCookie = Annotated[
+StrippedStr = Annotated[
     str,
     BeforeValidator(lambda x: str.strip(str(x))),
 ]
@@ -14,11 +14,8 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     input_base_url: str = "https://apiff14risingstones.web.sdo.com"
-    input_cookie: InputCookie = Field(default=...)
-    input_user_agent: str = (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,"
-        " like Gecko) Chrome/124.0.0.0 Safari/537.36"
-    )
+    input_cookie: StrippedStr = Field(default=...)
+    input_user_agent: StrippedStr = Field(default=...)
     input_comment_content: str = '<p><span class="at-emo">[emo6]</span>&nbsp;</p>'
     input_like_post_id: int = 8
     input_comment_post_id: int = 8
