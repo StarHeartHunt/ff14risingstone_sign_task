@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     input_cookie: InputCookie = Field(default=...)
     input_user_agent: str = (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,"
-        " like Gecko) Chrome/132.0.0.0 Safari/537.36"
+        " like Gecko) Chrome/124.0.0.0 Safari/537.36"
     )
     input_comment_content: str = '<p><span class="at-emo">[emo6]</span>&nbsp;</p>'
     input_like_post_id: int = 8

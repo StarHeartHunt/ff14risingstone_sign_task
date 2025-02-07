@@ -12,7 +12,7 @@ HEADERS = {
     "cache-control": "no-cache",
     "pragma": "no-cache",
     "priority": "u=1, i",
-    "sec-ch-ua": '"Not A(Brand";v="8", "Chromium";v="132", "Google Chrome";v="132"',
+    "sec-ch-ua": '"Not A(Brand";v="8", "Chromium";v="124", "Google Chrome";v="124"',
     "sec-ch-ua-mobile": "?0",
     "sec-ch-ua-platform": '"macOS"',
     "sec-fetch-dest": "empty",
