@@ -26,7 +26,7 @@ jobs:
           user_agent: ${{ secrets.USER_AGENT }}
 ```
 
-在 Settings > Secrets and variables > Actions，添加如下 Secret
+- 在 Settings > Secrets and variables > Actions，添加如下 Secret
 
 1. `COOKIE`
 
