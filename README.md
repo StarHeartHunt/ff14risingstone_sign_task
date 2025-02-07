@@ -30,26 +30,26 @@ jobs:
 
 1. `COOKIE`
 
-   值为 `Cookie` 头中以等号 `=` 分割的 `ff14risingstones` 键值对，其中右值为 urlencode 后的结果。
+值为 `Cookie` 头中以等号 `=` 分割的 `ff14risingstones` 键值对，其中右值为 urlencode 后的结果。
 
-   例：
+例：
 
-   ```bash
-   ff14risingstones=s%3A1111.2222222%2F33333
-   ```
+```bash
+ff14risingstones=s%3A1111.2222222%2F33333
+```
 
 2. `USER_AGENT`
 
-   > [!NOTE]
-   > 由于石之家 API 新增的检测机制，需要设置与登录（获取 Cookie）时相同的 User-Agent 头，详情参考 [#17](https://github.com/StarHeartHunt/ff14risingstone_sign_task/issues/17)
+> [!NOTE]
+> 由于石之家 API 新增的检测机制，需要设置与登录（获取 Cookie）时相同的 User-Agent 头，详情参考 [#17](https://github.com/StarHeartHunt/ff14risingstone_sign_task/issues/17)
 
-   值为登录时向石之家 API 所发送的 `User-Agent` 头。
+值为登录时向石之家 API 所发送的 `User-Agent` 头。
 
-   例：
+例：
 
-   ```bash
-   Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36
-   ```
+```bash
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36
+```
 
 ## 配置项
 
