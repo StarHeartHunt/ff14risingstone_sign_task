@@ -35,7 +35,7 @@ def main():
         logging.info("开始检查房屋拆除倒计时")
         user_info: dict[str, Any] = get_user_info()
         house_remain_day = (
-            user_info.get("data", {}).get("characterDetail", {}).get("house_remain_day")
+            user_info.get("data", {}).get("characterDetail", [{}])[0].get("house_remain_day")
         )
         if house_remain_day:
             raise Exception(f"房屋拆除倒计时：{house_remain_day}")
