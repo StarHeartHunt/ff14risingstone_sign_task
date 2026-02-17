@@ -21,4 +21,4 @@ jobs:
       - run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
       - name: Run Pyright
-        uses: jakebailey/pyright-action@v2
+        uses: jakebailey/pyright-action@v3
