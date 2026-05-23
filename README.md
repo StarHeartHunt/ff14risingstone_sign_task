@@ -18,7 +18,7 @@ jobs:
     name: Run FF14 Risingstone Tasks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: docker://ghcr.io/starhearthunt/ff14risingstone_sign_task:master
         with:
