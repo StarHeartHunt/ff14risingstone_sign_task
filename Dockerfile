@@ -1,4 +1,4 @@
-FROM python:3.12-bookworm as requirements-stage
+FROM python:3.15-bookworm as requirements-stage
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
@@ -8,7 +8,7 @@ COPY ./pyproject.toml ./uv.lock* /tmp/
 
 RUN uv export --format requirements-txt --output-file requirements.txt --no-hashes
 
-FROM python:3.12-slim-bookworm
+FROM python:3.15-slim-bookworm
 
 WORKDIR /app
 
